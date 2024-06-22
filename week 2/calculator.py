@@ -1,86 +1,92 @@
-# pip install tkinter
-import tkinter as tk
-import tkinter.messagebox
-from tkinter.constants import SUNKEN
-
-window = tk.Tk()
-window.title('Calculator-GeeksForGeeks')
-frame = tk.Frame(master=window, bg="skyblue", padx=10)
-frame.pack()
-entry = tk.Entry(master=frame, relief=SUNKEN, borderwidth=3, width=30)
-entry.grid(row=0, column=0, columnspan=3, ipady=2, pady=2)
+from tkinter import * #importing everything from tkinter module
+x = '' #global var to keep track every entry
+root = Tk()  #formation of root window
+var = StringVar() #declaring string var that can change in widgets
 
 
-def myclick(number):
-	entry.insert(tk.END, number)
+def var_set(v): #func to set value of StringVar 
+    global x 
+    x += v  #adding entry to x each time a button pressed
+    var.set(x)
 
 
-def equal():
-	try:
-		y = str(eval(entry.get()))
-		entry.delete(0, tk.END)
-		entry.insert(0, y)
-	except:
-		tkinter.messagebox.showinfo("Error", "Syntax Error")
+def eval_fun(): #for evalution of string
+    r = e.get() #get entry value as string
+    var.set(eval(r)) #evalution of string
+
+def clr_fun(): #to clear entry widget
+    global x
+    x = ''
+    var.set('')
 
 
-def clear():
-	entry.delete(0, tk.END)
+def bk_sp(): #function to perform backspacing
+    global x
+    x = x[:-1] #removing last char from string
+    var.set(x) #updating var's value
+
+e = Entry(root,textvariable=var,width=50,bg="#000000",fg="#FFFFFF",relief=RIDGE,bd=23) #Entry widget to take entries and show them
+e.grid(row=0,column=0,columnspan=3,sticky='WE') #placing entry widget into root window
+
+bk = Button(root,text='DEL',command=lambda:bk_sp(),width=16,height=3,bg='#666666',fg='#FFFFFF',relief=RIDGE,bd=5) #back space button 
+bk.grid(row=0,column=3) #attaching the backspace button to it's place
+
+bclr = Button(root,text='CLR',command=lambda:clr_fun(),width=16,height=2,bg='#666666',fg='#FFFFFF',relief=RIDGE,bd=5) #Clear Button
+bclr.grid(row=5,column=1) #crating a Clear button which will wipe the screen for next calcultation
+
+bq = Button(root,text='QUIT',command=lambda:root.destroy(),width=16,height=2,bg='#666666',fg='#FFFFFF',relief=RIDGE,bd=5) #Quit Button
+bq.grid(row=5,column=0)
 
 
-button_1 = tk.Button(master=frame, text='1', padx=15,
-					pady=5, width=3, command=lambda: myclick(1))
-button_1.grid(row=1, column=0, pady=2)
-button_2 = tk.Button(master=frame, text='2', padx=15,
-					pady=5, width=3, command=lambda: myclick(2))
-button_2.grid(row=1, column=1, pady=2)
-button_3 = tk.Button(master=frame, text='3', padx=15,
-					pady=5, width=3, command=lambda: myclick(3))
-button_3.grid(row=1, column=2, pady=2)
-button_4 = tk.Button(master=frame, text='4', padx=15,
-					pady=5, width=3, command=lambda: myclick(4))
-button_4.grid(row=2, column=0, pady=2)
-button_5 = tk.Button(master=frame, text='5', padx=15,
-					pady=5, width=3, command=lambda: myclick(5))
-button_5.grid(row=2, column=1, pady=2)
-button_6 = tk.Button(master=frame, text='6', padx=15,
-					pady=5, width=3, command=lambda: myclick(6))
-button_6.grid(row=2, column=2, pady=2)
-button_7 = tk.Button(master=frame, text='7', padx=15,
-					pady=5, width=3, command=lambda: myclick(7))
-button_7.grid(row=3, column=0, pady=2)
-button_8 = tk.Button(master=frame, text='8', padx=15,
-					pady=5, width=3, command=lambda: myclick(8))
-button_8.grid(row=3, column=1, pady=2)
-button_9 = tk.Button(master=frame, text='9', padx=15,
-					pady=5, width=3, command=lambda: myclick(9))
-button_9.grid(row=3, column=2, pady=2)
-button_0 = tk.Button(master=frame, text='0', padx=15,
-					pady=5, width=3, command=lambda: myclick(0))
-button_0.grid(row=4, column=1, pady=2)
+b9 = Button(root,text="9",command=lambda:var_set('9'),width=16,height=2, bg='#666666', fg='#FFFFFF',relief=RIDGE,bd=5)
+b8 = Button(root,text="8",command=lambda:var_set('8'),width=16,height=2, bg='#666666', fg='#FFFFFF',relief=RIDGE,bd=5)
+b7 = Button(root,text="7",command=lambda:var_set('7'),width=16,height=2, bg='#666666', fg='#FFFFFF',relief=RIDGE,bd=5)
+b6 = Button(root,text="6",command=lambda:var_set('6'),width=16,height=2, bg='#666666', fg='#FFFFFF',relief=RIDGE,bd=5)
+b5 = Button(root,text="5",command=lambda:var_set('5'),width=16,height=2, bg='#666666', fg='#FFFFFF',relief=RIDGE,bd=5)
+b4 = Button(root,text="4",command=lambda:var_set('4'),width=16,height=2, bg='#666666', fg='#FFFFFF',relief=RIDGE,bd=5)
+b3 = Button(root,text="3",command=lambda:var_set('3'),width=16,height=2, bg='#666666', fg='#FFFFFF',relief=RIDGE,bd=5)
+b2 = Button(root,text="2",command=lambda:var_set('2'),width=16,height=2, bg='#666666', fg='#FFFFFF',relief=RIDGE,bd=5)
+b1 = Button(root,text="1",command=lambda:var_set('1'),width=16,height=2, bg='#666666', fg='#FFFFFF',relief=RIDGE,bd=5)
+b0 = Button(root,text="0",command=lambda:var_set('0'),width=16,height=2, bg='#666666', fg='#FFFFFF',relief=RIDGE,bd=5)
 
-button_add = tk.Button(master=frame, text="+", padx=15,
-					pady=5, width=3, command=lambda: myclick('+'))
-button_add.grid(row=5, column=0, pady=2)
 
-button_subtract = tk.Button(
-	master=frame, text="-", padx=15, pady=5, width=3, command=lambda: myclick('-'))
-button_subtract.grid(row=5, column=1, pady=2)
+b9.grid(row=1,column=0)
+b8.grid(row=1,column=1)
+b7.grid(row=1,column=2)
+b6.grid(row=2,column=0)
+b5.grid(row=2,column=1)
+b4.grid(row=2,column=2)
+b3.grid(row=3,column=0)
+b2.grid(row=3,column=1)
+b1.grid(row=3,column=2)
+b0.grid(row=4,column=1)
 
-button_multiply = tk.Button(
-	master=frame, text="*", padx=15, pady=5, width=3, command=lambda: myclick('*'))
-button_multiply.grid(row=5, column=2, pady=2)
+bb = Button(root,text=".",command=lambda:var_set('.'),width=16,height=2, bg='#666666', fg='#FFFFFF',relief=RIDGE,bd=5)
+be = Button(root,text="=",command=lambda:eval_fun(),  width=16,height=2, bg='#666666', fg='#FFFFFF',relief=RIDGE,bd=5)
+bp = Button(root,text="+",command=lambda:var_set('+'),width=16,height=2, bg='#666666', fg='#FFFFFF',relief=RIDGE,bd=5)
+bs = Button(root,text="-",command=lambda:var_set('-'),width=16,height=2, bg='#666666', fg='#FFFFFF',relief=RIDGE,bd=5)
+bm = Button(root,text="*",command=lambda:var_set('*'),width=16,height=2, bg='#666666', fg='#FFFFFF',relief=RIDGE,bd=5)
+bd = Button(root,text="/",command=lambda:var_set('/'),width=16,height=2, bg='#666666', fg='#FFFFFF',relief=RIDGE,bd=5)
+pb = Button(root,text="**",command=lambda:var_set('**'),width=16,height=2,bg='#666666',fg='#FFFFFF',relief=RIDGE,bd=5)
+mb = Button(root,text="%",command=lambda:var_set('%'),width=16,height=2,  bg='#666666',fg='#FFFFFF',relief=RIDGE,bd=5)
 
-button_div = tk.Button(master=frame, text="/", padx=15,
-					pady=5, width=3, command=lambda: myclick('/'))
-button_div.grid(row=6, column=0, pady=2)
 
-button_clear = tk.Button(master=frame, text="clear",
-						padx=15, pady=5, width=12, command=clear)
-button_clear.grid(row=6, column=1, columnspan=2, pady=2)
 
-button_equal = tk.Button(master=frame, text="=", padx=15,
-						pady=5, width=9, command=equal)
-button_equal.grid(row=7, column=0, columnspan=3, pady=2)
+bb.grid(row=4,column=0)
+be.grid(row=4,column=2)
+bp.grid(row=1,column=3)
+bs.grid(row=2,column=3)
+bm.grid(row=3,column=3)
+bd.grid(row=4,column=3)
+pb.grid(row=5,column=2)
+mb.grid(row=5,column=3)
 
-window.mainloop()
+
+root.wm_resizable(0,0) #will not be resizalbe hight or width of the window
+
+root.wm_title("BASIC CALCULATOR") #setting up title for the window
+
+#img = PhotoImage(file="small.gif") #open image small.gif from current folder (place one gif image with name small.gif in current directory)
+#root.wm_iconphoto(root,img) #set img as icon on window
+root.bell()#rings a display's bell
+mainloop() #window starts from here
